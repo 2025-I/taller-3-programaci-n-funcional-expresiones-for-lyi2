@@ -22,7 +22,7 @@ class Estacion() {
       case x :: xs => aplicarMovimientosAux(xs, aplicarMovimiento(acc.head, x) :: acc)
     }
 
-    aplicarMovimientosAux(movs, List(e))
+    aplicarMovimientosAux(movs, List(e)).reverse
   }
 
   def definirManiobra(t1: Tren, t2: Tren) : Maniobra = {
