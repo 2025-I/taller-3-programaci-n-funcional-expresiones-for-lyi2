@@ -17,9 +17,9 @@ class Estacion() {
 
   def aplicarMovimientos(e: Estado, movs:Maniobra) : List[Estado] = {
     @annotation.tailrec
-    def aplicarMovimientosAux(movs:Maniobra, acc:List[Estado]):List[Estado] = {
-      if (movs.isEmpty) List((List(), List(), List()))
-      else aplicarMovimientosAux(movs.tail, acc ++ List((List(), List(), List())))
+    def aplicarMovimientosAux(movs:Maniobra, acc:List[Estado]) : List[Estado] = movs match {
+      case Nil => acc
+      case x :: xs => aplicarMovimientosAux(xs, aplicarMovimiento(acc.head, x) :: acc)
     }
 
     aplicarMovimientosAux(movs, List(e))
