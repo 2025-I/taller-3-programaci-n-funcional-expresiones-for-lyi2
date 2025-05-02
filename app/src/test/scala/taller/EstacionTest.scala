@@ -28,19 +28,19 @@ class EstacionTest extends AnyFunSuite {
   }
 
   test("Aplicar Movimiento 03") {
-    val r3: objEstacion.Estado = (List('a', 'b'), List('c', 'd'), List())
+    val r3: objEstacion.Estado = (List(), List('c', 'd'), List('a', 'b'))
 
     assert(e3 == r3)
   }
 
   test("Aplicar Movimiento 04") {
-    val r4: objEstacion.Estado = (List('a', 'b'), List('c', 'd'), List())
+    val r4: objEstacion.Estado = (List('a'), List('c', 'd'), List('b'))
 
     assert(e4 == r4)
   }
 
   test("Aplicar Movimiento 05") {
-    val r5: objEstacion.Estado = (List('a', 'b'), List('c', 'd'), List())
+    val r5: objEstacion.Estado = (List('a', 'c', 'd'), List(), List('b'))
 
     assert(e5 == r5)
   }// Tests de ejemplo 01
