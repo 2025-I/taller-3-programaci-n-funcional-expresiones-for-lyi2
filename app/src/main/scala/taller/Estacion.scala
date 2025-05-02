@@ -19,25 +19,33 @@ class Estacion() {
       if (n <= principal.length) {
         val (resto, mover) = principal.splitAt(principal.length - n)
         (resto, mover ++ uno, dos)
-      } else e
+      }
+      else if (n > principal.length) (List(), principal ++ uno, dos)
+      else e
 
     case Uno(n) if n < 0 =>
       if (n.abs <= uno.length) {
         val (mover, resto) = uno.splitAt(n.abs)
         (principal ++ mover, resto, dos)
-      } else e
+      }
+      else if (n.abs > uno.length) (principal ++ uno, List(), dos)
+      else e
 
     case Dos(n) if n > 0 =>
       if (n <= principal.length) {
         val (resto, mover) = principal.splitAt(principal.length - n)
         (resto, uno, mover ++ dos)
-      } else e
+      }
+      else if (n > principal.length) (List(), uno, principal ++ dos)
+      else e
 
     case Dos(n) if n < 0 =>
       if (n.abs <= dos.length) {
         val (mover, resto) = dos.splitAt(n.abs)
         (principal ++ mover, uno, resto)
-      } else e
+      }
+      else if (n.abs > dos.length) (principal ++ dos, uno, List())
+      else e
 
     case _ => e
   }
