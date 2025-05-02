@@ -98,8 +98,8 @@ class EstacionTest extends AnyFunSuite {
     }.toList
   }
 
-  // Prueba de juguete (10 vagones, 10 movimientos)
-  test("Prueba de Juguete: 10 vagones y 10 movimientos") {
+  // aplicarMovimiento Prueba de juguete (10 vagones, 10 movimientos)
+  test("01 aplicarMovimiento Prueba de Juguete: 10 vagones y 10 movimientos") {
     val vagones = (1 to 10).toList
     val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
     val movimientos = generarMovimientos(10)
@@ -108,32 +108,31 @@ class EstacionTest extends AnyFunSuite {
     assert(resultado.head == estadoInicial)
     assert(resultado.length == 11)
   }
+  
+  // aplicarMovimiento Prueba pequeña (100 vagones y 100 movimientos)
+  test("02 aplicarMovimiento Prueba Pequeña: 100 vagones y 100 movimientos") {
+    val vagones = (1 to 100).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(100)
 
- // Prueba pequeña (100 vagones y 100 movimientos)
-test("Prueba Pequeña: 100 vagones y 100 movimientos") {
-  val vagones = (1 to 100).toList
-  val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
-  val movimientos = generarMovimientos(100)
+    val inicio = System.nanoTime() // ⏱️ Inicio del cronómetro
 
-  val inicio = System.nanoTime() // ⏱️ Inicio del cronómetro
+    val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+    
+    val fin = System.nanoTime() // ⏱️ Fin del cronómetro
+    val duracionMs = (fin - inicio) / 1_000_000 // conversión a milisegundos
 
-  val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+    println(s"⏱️ Tiempo de ejecución Prueba Pequeña: $duracionMs ms")
 
-  val fin = System.nanoTime() // ⏱️ Fin del cronómetro
-  val duracionMs = (fin - inicio) / 1_000_000 // conversión a milisegundos
-
-  println(s"⏱️ Tiempo de ejecución Prueba Pequeña: $duracionMs ms")
-
-  assert(resultado.head == estadoInicial)
-  assert(resultado.length == 101)
+    assert(resultado.head == estadoInicial)
+    assert(resultado.length == 101)
 }
-
-
-// Prueba mediana (500 vagones y 500 movimientos)
-test("Prueba Mediana: 500 vagones y 500 movimientos") {
-  val vagones = (1 to 500).toList
-  val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
-  val movimientos = generarMovimientos(500)
+  
+  // aplicarMovimiento Prueba mediana (500 vagones y 500 movimientos)
+  test("03 aplicarMovimiento Prueba Mediana: 500 vagones y 500 movimientos") {
+    val vagones = (1 to 500).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(500)
 
   val inicio = System.nanoTime() // ⏱️ Inicio del cronómetro
 
@@ -148,11 +147,11 @@ test("Prueba Mediana: 500 vagones y 500 movimientos") {
   assert(resultado.length == 501)
 }
 
-  // Prueba grande (1000 vagones y 1000 movimientos) //
-    test("Prueba Grande: 1000 vagones y 1000 movimientos") {
-  val vagones = (1 to 1000).toList
-  val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
-  val movimientos = generarMovimientos(1000)
+  // aplicarMovimiento Prueba grande (1000 vagones y 1000 movimientos) //
+  test("04 aplicarMovimiento Prueba Grande: 1000 vagones y 1000 movimientos") {
+    val vagones = (1 to 1000).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(1000)
 
   val tiempoInicio = System.nanoTime() // 🔹 Empieza medición
 
@@ -167,5 +166,71 @@ test("Prueba Mediana: 500 vagones y 500 movimientos") {
   assert(resultado.head == estadoInicial)
   assert(resultado.length == 1001)
 }
+  
+  // aplicarMovimiento Prueba de carga (1000 vagones y 1000 movimientos)
+  test("05 aplicarMovimiento Prueba de Carga: 1000 vagones y 1000 movimientos") {
+    val vagones = (1 to 1000).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(1000)
+    val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+    assert(resultado.head == estadoInicial)
+    assert(resultado.length == 1001)
+  }
+
+  // aplicarMovimientos Prueba de juguete (10 vagones, 10 movimientos)
+  test("01 aplicarMovimientos Prueba de Juguete: 10 vagones y 10 movimientos") {
+    val vagones = (1 to 10).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(10)
+    val f1 = objEstacion.aplicarMovimientos(estadoInicial, movimientos)
+    val res1 = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+    assert(f1 == res1)
+  }
+
+  // aplicarMovimientos Prueba pequeña (100 vagones y 100 movimientos)
+  test("02 aplicarMovimientos Prueba Pequeña: 100 vagones y 100 movimientos") {
+    val vagones = (1 to 100).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(100)
+    val f2 = objEstacion.aplicarMovimientos(estadoInicial, movimientos)
+    val res2 = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+    assert(f2 == res2)
+  }
+
+  // aplicarMovimientos Prueba mediana (500 vagones y 500 movimientos)
+  test("03 aplicarMovimientos Prueba Mediana: 500 vagones y 500 movimientos") {
+    val vagones = (1 to 500).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(500)
+    val f3 = objEstacion.aplicarMovimientos(estadoInicial, movimientos)
+    val res3 = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+    assert(f3 == res3)
+  }
+
+  // aplicarMovimientos Prueba grande (1000 vagones y 1000 movimientos)
+  test("04 aplicarMovimientos Prueba Grande: 1000 vagones y 1000 movimientos") {
+    val vagones = (1 to 1000).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(1000)
+    val f4 = objEstacion.aplicarMovimientos(estadoInicial, movimientos)
+    val res4 = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+    assert(f4 == res4)
+  }
+
+  // aplicarMovimientos Prueba de carga (1000 vagones y 1000 movimientos)
+  test("05 aplicarMovimientos Prueba de Carga: 1000 vagones y 1000 movimientos") {
+    val vagones = (1 to 1000).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(1000)
+    val f5 = objEstacion.aplicarMovimientos(estadoInicial, movimientos)
+    val res5 = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+    assert(f5 == res5)
+  }
 
 }
