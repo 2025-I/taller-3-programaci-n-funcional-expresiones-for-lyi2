@@ -9,7 +9,7 @@ La función utiliza un patrón `match` para manejar los casos de movimientos `Un
 
 - **Caso Base (`case _ => e`)**: Este caso captura cualquier movimiento no reconocido. Aunque es útil como medida de seguridad, sería mejor lanzar una excepción o manejar explícitamente los casos inválidos para evitar silencios en errores.
   
-- **Redundancia en la Lógica**: Los bloques de código para `Uno(n)` y `Dos(n)` son muy similares. Esto podría refactorizarse para evitar duplicación y mejorar la mantenibilidad.
+- **Redundancia en la Lógica**: Los bloques de código para `Uno(n)` y `Dos(n)` son muy similares. Esto podría refactorizarse para evitar duplicación y mejorar la mantenibilidad. 
 
 ---
 
