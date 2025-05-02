@@ -82,4 +82,66 @@ class EstacionTest extends AnyFunSuite {
 
     assert(t1 == res2)
   } // Tests de ejemplo 03
+
+  
+  ////////////////////
+   
+
+  // Función auxiliar para generar movimientos aleatorios
+  def generarMovimientos(n: Int): List[objEstacion.Movimiento] = {
+    val rand = new scala.util.Random()
+    (1 to n).map { _ =>
+      val tipo = rand.nextBoolean()
+      val cantidad = rand.nextInt(5) + 1 // entre 1 y 5
+      val signo = if (rand.nextBoolean()) 1 else -1
+      if (tipo) objEstacion.Uno(signo * cantidad) else objEstacion.Dos(signo * cantidad)
+    }.toList
+  }
+
+  // Prueba de juguete (10 vagones, 10 movimientos)
+  test("Prueba de Juguete: 10 vagones y 10 movimientos") {
+    val vagones = (1 to 10).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(10)
+    val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+    assert(resultado.head == estadoInicial)
+    assert(resultado.length == 11)
+  }
+
+  // Prueba pequeña (100 vagones y 100 movimientos)
+  test("Prueba Pequeña: 100 vagones y 100 movimientos") {
+    val vagones = (1 to 100).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(100)
+    val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+    assert(resultado.head == estadoInicial)
+    assert(resultado.length == 101)
+  }
+
+  // Prueba mediana (500 vagones y 500 movimientos)
+  test("Prueba Mediana: 500 vagones y 500 movimientos") {
+    val vagones = (1 to 500).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(500)
+    val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+    assert(resultado.head == estadoInicial)
+    assert(resultado.length == 501)
+  }
+
+  // Prueba grande (1000 vagones y 1000 movimientos) //
+  test("Prueba Grande: 1000 vagones y 1000 movimientos") {
+    val vagones = (1 to 1000).toList
+    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+    val movimientos = generarMovimientos(1000)
+    val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+    assert(resultado.head == estadoInicial)
+    assert(resultado.length == 1001)
+  }
+
+
+
 }
