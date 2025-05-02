@@ -109,39 +109,63 @@ class EstacionTest extends AnyFunSuite {
     assert(resultado.length == 11)
   }
 
-  // Prueba pequeña (100 vagones y 100 movimientos)
-  test("Prueba Pequeña: 100 vagones y 100 movimientos") {
-    val vagones = (1 to 100).toList
-    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
-    val movimientos = generarMovimientos(100)
-    val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+ // Prueba pequeña (100 vagones y 100 movimientos)
+test("Prueba Pequeña: 100 vagones y 100 movimientos") {
+  val vagones = (1 to 100).toList
+  val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+  val movimientos = generarMovimientos(100)
 
-    assert(resultado.head == estadoInicial)
-    assert(resultado.length == 101)
-  }
+  val inicio = System.nanoTime() // ⏱️ Inicio del cronómetro
 
-  // Prueba mediana (500 vagones y 500 movimientos)
-  test("Prueba Mediana: 500 vagones y 500 movimientos") {
-    val vagones = (1 to 500).toList
-    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
-    val movimientos = generarMovimientos(500)
-    val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+  val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
 
-    assert(resultado.head == estadoInicial)
-    assert(resultado.length == 501)
-  }
+  val fin = System.nanoTime() // ⏱️ Fin del cronómetro
+  val duracionMs = (fin - inicio) / 1_000_000 // conversión a milisegundos
+
+  println(s"⏱️ Tiempo de ejecución Prueba Pequeña: $duracionMs ms")
+
+  assert(resultado.head == estadoInicial)
+  assert(resultado.length == 101)
+}
+
+
+// Prueba mediana (500 vagones y 500 movimientos)
+test("Prueba Mediana: 500 vagones y 500 movimientos") {
+  val vagones = (1 to 500).toList
+  val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+  val movimientos = generarMovimientos(500)
+
+  val inicio = System.nanoTime() // ⏱️ Inicio del cronómetro
+
+  val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+
+  val fin = System.nanoTime() // ⏱️ Fin del cronómetro
+  val duracionMs = (fin - inicio) / 1_000_000 // conversión a milisegundos
+
+  println(s"⏱️ Tiempo de ejecución Prueba Mediana: $duracionMs ms")
+
+  assert(resultado.head == estadoInicial)
+  assert(resultado.length == 501)
+}
 
   // Prueba grande (1000 vagones y 1000 movimientos) //
-  test("Prueba Grande: 1000 vagones y 1000 movimientos") {
-    val vagones = (1 to 1000).toList
-    val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
-    val movimientos = generarMovimientos(1000)
-    val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
+    test("Prueba Grande: 1000 vagones y 1000 movimientos") {
+  val vagones = (1 to 1000).toList
+  val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
+  val movimientos = generarMovimientos(1000)
 
-    assert(resultado.head == estadoInicial)
-    assert(resultado.length == 1001)
-  }
+  val tiempoInicio = System.nanoTime() // 🔹 Empieza medición
 
+  val resultado = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
 
+  val tiempoFin = System.nanoTime() // 🔹 Termina medición
+
+  val tiempoTotalMs = (tiempoFin - tiempoInicio) / 1_000_000.0 // 🔹 En milisegundos
+
+  println(f"Tiempo de ejecución Prueba Grande: $tiempoTotalMs%.3f ms")
+
+  assert(resultado.head == estadoInicial)
+  assert(resultado.length == 1001)
+}
 
 }
