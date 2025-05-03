@@ -194,7 +194,16 @@ class EstacionTest extends AnyFunSuite {
     val vagones = (1 to 100).toList
     val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
     val movimientos = generarMovimientos(100)
+
+    val inicio = System.nanoTime() // ⏱️ Inicio del cronómetro
+
     val f2 = objEstacion.aplicarMovimientos(estadoInicial, movimientos)
+
+    val fin = System.nanoTime() // ⏱️ Fin del cronómetro
+    val duracionMs = (fin - inicio) / 1_000_000 // conversión a milisegundos
+
+    println(s"⏱️ Tiempo de ejecución Prueba Pequeña: $duracionMs ms")
+
     val res2 = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
 
     assert(f2 == res2)
@@ -205,7 +214,16 @@ class EstacionTest extends AnyFunSuite {
     val vagones = (1 to 500).toList
     val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
     val movimientos = generarMovimientos(500)
+
+    val inicio = System.nanoTime() // ⏱️ Inicio del cronómetro
+
     val f3 = objEstacion.aplicarMovimientos(estadoInicial, movimientos)
+
+    val fin = System.nanoTime() // ⏱️ Fin del cronómetro
+    val duracionMs = (fin - inicio) / 1_000_000 // conversión a milisegundos
+
+    println(s"⏱️ Tiempo de ejecución Prueba Mediana: $duracionMs ms")
+
     val res3 = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
 
     assert(f3 == res3)
@@ -216,7 +234,16 @@ class EstacionTest extends AnyFunSuite {
     val vagones = (1 to 1000).toList
     val estadoInicial: objEstacion.Estado = (vagones, Nil, Nil)
     val movimientos = generarMovimientos(1000)
+
+    val tiempoInicio = System.nanoTime() // 🔹 Empieza medición
+
     val f4 = objEstacion.aplicarMovimientos(estadoInicial, movimientos)
+
+    val tiempoFin = System.nanoTime() // 🔹 Termina medición
+    val tiempoTotalMs = (tiempoFin - tiempoInicio) / 1_000_000.0 // 🔹 En milisegundos
+
+    println(f"Tiempo de ejecución Prueba Grande: $tiempoTotalMs%.3f ms")
+
     val res4 = movimientos.scanLeft(estadoInicial)(objEstacion.aplicarMovimiento)
 
     assert(f4 == res4)
