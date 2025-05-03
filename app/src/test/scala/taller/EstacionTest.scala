@@ -3,6 +3,7 @@ package taller
 import org.scalatest.funsuite.AnyFunSuite
 import org.junit.runner.RunWith
 import org.scalatestplus.junit.JUnitRunner
+import scala.util.Random
 
 @RunWith(classOf[JUnitRunner])
 class EstacionTest extends AnyFunSuite {
@@ -232,5 +233,55 @@ class EstacionTest extends AnyFunSuite {
 
     assert(f5 == res5)
   }
+  // definirManiobra Prueba de juguete (10 vagones)
+  test("01 definirManiobra Prueba de Juguete: 10 vagones") {
+    val vagones = (1 to 5).toList
+    val vagones2 = Random.shuffle(vagones)
+    val maniobra = objEstacion.definirManiobra(vagones, vagones2)
+    val estadoFinal = objEstacion.aplicarMovimientos((vagones, Nil, Nil), maniobra).reverse.head._1
+
+    assert(estadoFinal == vagones2)
+  }
+
+  // definirManiobra Prueba pequeña (100 vagones)
+  test("02 definirManiobra Prueba Pequeña: 100 vagones") {
+    val vagones = (1 to 100).toList
+    val vagones2 = Random.shuffle(vagones)
+    val maniobra = objEstacion.definirManiobra(vagones, vagones2)
+    val estadoFinal = objEstacion.aplicarMovimientos((vagones, Nil, Nil), maniobra).reverse.head._1
+
+    assert(estadoFinal == vagones2)
+  }
+
+  // definirManiobra Prueba mediana (500 vagones)
+  test("03 definirManiobra Prueba Mediana: 500 vagones") {
+    val vagones = (1 to 500).toList
+    val vagones2 = Random.shuffle(vagones)
+    val maniobra = objEstacion.definirManiobra(vagones, vagones2)
+    val estadoFinal = objEstacion.aplicarMovimientos((vagones, Nil, Nil), maniobra).reverse.head._1
+
+    assert(estadoFinal == vagones2)
+  }
+
+  // definirManiobra Prueba grande (1000 vagones)
+  test("04 definirManiobra Prueba Grande: 1000 vagones") {
+    val vagones = (1 to 1000).toList
+    val vagones2 = Random.shuffle(vagones)
+    val maniobra = objEstacion.definirManiobra(vagones, vagones2)
+    val estadoFinal = objEstacion.aplicarMovimientos((vagones, Nil, Nil), maniobra).reverse.head._1
+
+    assert(estadoFinal == vagones2)
+  }
+
+  // definirManiobra Prueba de carga (1000 vagones)
+  test("05 definirManiobra Prueba de Carga: 1000 vagones") {
+    val vagones = (1 to 1000).toList
+    val vagones2 = Random.shuffle(vagones)
+    val maniobra = objEstacion.definirManiobra(vagones, vagones2)
+    val estadoFinal = objEstacion.aplicarMovimientos((vagones, Nil, Nil), maniobra).reverse.head._1
+
+    assert(estadoFinal == vagones2)
+  }
+
 
 }
