@@ -63,6 +63,50 @@ class Estacion() {
   }
 
   def definirManiobra(t1: Tren, t2: Tren) : Maniobra = {
-      List(Uno(1), Dos(2))
+    def esObjetivo(e: Estado, t: Tren) : Boolean = e._1 == t
+
+    def generarPosiblesMovimientos(e: Estado) : List[Movimiento] = {
+      val (principal, uno, dos) = e
+      val principalL = principal.length
+      val unoL = uno.length
+      val dosL = dos.length
+
+      val movimientoUnoPos = (1 to principalL).map(Uno).toList
+      val movimientoUnoNeg = (1 to unoL).map(n => Uno(-n)).toList
+      val movimientoDosPos = (1 to principalL).map(Dos).toList
+      val movimientoDosNeg = (1 to dosL).map(n => Dos(-n)).toList
+
+      movimientoUnoPos ++ movimientoUnoNeg ++ movimientoDosPos ++ movimientoDosNeg
+    }
+
+    @annotation.tailrec
+    def bfsRecursivo(cola: List[(Estado, Maniobra)], visitado: Set[Estado], objetivo: Tren) : Option[Maniobra] = {
+      cola match {
+        case Nil => None
+
+        case (estado, camino) :: resto =>
+          if (esObjetivo(estado, objetivo)) Some(camino)
+          else {
+            val posiblesMovimientos = generarPosiblesMovimientos(estado)
+
+            val nuevosEstadosCaminos = for {
+              movimiento <- posiblesMovimientos
+              nuevoEstado = aplicarMovimiento(estado, movimiento)
+              if !visitado.contains(nuevoEstado)
+            } yield (nuevoEstado, camino :+ movimiento)
+
+            val nuevoVisitado = visitado ++ nuevosEstadosCaminos.map(_._1)
+            val nuevaCola = resto ++ nuevosEstadosCaminos
+
+            bfsRecursivo(nuevaCola, nuevoVisitado, objetivo)
+          }
+      }
+    }
+
+    val casoBase = (t1, Nil, Nil)
+    val casoObjetivo = t2
+
+    bfsRecursivo(List((casoBase, Nil)), Set(casoBase), casoObjetivo).getOrElse(throw new Exception("No se encontró una maniobra válida"))
   }
 }
+
