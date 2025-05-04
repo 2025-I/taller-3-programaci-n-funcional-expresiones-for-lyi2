@@ -70,8 +70,8 @@ class EstacionTest extends AnyFunSuite {
 
   // Tests de ejemplo 03
   test ("Definir Maniobra 01") {
-    val t1 = objEstacion.definirManiobra(List('a', 'b', 'c', 'd'), List('d', 'b', 'c', 'a'))
-    val res2: objEstacion.Maniobra = List(objEstacion.Uno(4),
+    val tt1 = objEstacion.definirManiobra(List('a', 'b', 'c', 'd'), List('d', 'b', 'c', 'a'))
+    val tt2: objEstacion.Maniobra = List(objEstacion.Uno(4),
                                           objEstacion.Uno(-3),
                                           objEstacion.Dos(3),
                                           objEstacion.Uno(-1),
@@ -81,7 +81,10 @@ class EstacionTest extends AnyFunSuite {
                                           objEstacion.Dos(-1),
                                           objEstacion.Uno(-1))
 
-    assert(t1 == res2)
+    val tres1 = objEstacion.aplicarMovimientos((List('a', 'b', 'c', 'd'), Nil, Nil), tt1).reverse.head._1
+    val tres2 = objEstacion.aplicarMovimientos((List('a', 'b', 'c', 'd'), Nil, Nil), tt2).reverse.head._1
+
+    assert(tres1 == tres2)
   } // Tests de ejemplo 03
 
   
